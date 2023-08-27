@@ -29,7 +29,7 @@ if(phones.length>12){
 
    //Display top 10 products
    console.log(phones.length)
-   phones=phones.slice(0,10);
+   phones=phones.slice(0,12);
 
 
 
@@ -52,16 +52,30 @@ if(phones.length>12){
 
     `;
    phoneContainer.appendChild(phoneCard);
-   })
+   });
+
+   //hide loading spinners
+   toggleLoding(false);
+
 }
 
 //Handle Search button
 const handleSearch=()=>{
+    toggleLoding(true);
     //console.log('searche working')
     const searchField=document.getElementById('search-field');
     const searchText=searchField.value;
     console.log(searchText)
     loadPhone(searchText);
 
+}
+
+const toggleLoding=(isLoading)=>{
+    const loadingSpinner=document.getElementById('loding-spinner');
+    if(isLoading){
+        loadingSpinner.classList.remove('hidden')
+    }else{
+        loadingSpinner.classList.add('hidden')
+    }
 }
 //loadPhone();
