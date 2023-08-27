@@ -15,9 +15,26 @@ const displayPhone =phones =>{
 
    //clear phone container cards before adding new cards
    phoneContainer.textContent='';
-   phones.forEach(phone =>{
-    console.log(phone);
+   
 
+//    Display Show all producte
+const showAllContainer= document.getElementById('show-all-container');
+
+if(phones.length>12){
+   showAllContainer.classList.remove('hidden');
+
+}else{
+    showAllContainer.classList.add('hidden')
+}
+
+   //Display top 10 products
+   console.log(phones.length)
+   phones=phones.slice(0,10);
+
+
+
+   phones.forEach(phone =>{
+    //console.log(phone);
     const phoneCard =document.createElement('div');//Create a div
     phoneCard.classList=`card  lg:w-96 bg-[#f7f7f7] shadow-lg`; //add class list 
     //add innerhtml
@@ -25,7 +42,7 @@ const displayPhone =phones =>{
     <figure class="px-10 pt-10">
     <img src="${phone.image}" />
     </figure>
-  <div class="card-body items-center text-center">
+  <div class="card-body items-center text-center ">
     <h2 class="card-title">${phone.phone_name}</h2>
     <p>If a dog chews shoes whose shoes does he choose?</p>
     <div class="card-actions">
