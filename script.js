@@ -1,15 +1,15 @@
 //console.log('hello naeem');
 
-const loadPhone=async(searchText) =>{//Create a function to call api url
+const loadPhone=async(searchText='samsung' ,isShowAll) =>{//Create a function to call api url
     const res =await fetch(`https://openapi.programming-hero.com/api/phones?search=${searchText}`);//Call Api by fetch
     const data =await res.json();//Create response
     const phones=data.data;
     //console.log(phones);
-    displayPhone(phones);
+    displayPhone(phones,isShowAll);
     
 }
 
-const displayPhone =phones =>{
+const displayPhone =(phones,isShowAll) =>{
    //console.log(phones)
    const phoneContainer=document.getElementById('phone-container');//step 1 make a div for put appendchild
 
@@ -20,16 +20,21 @@ const displayPhone =phones =>{
 //    Display Show all producte
 const showAllContainer= document.getElementById('show-all-container');
 
-if(phones.length>12){
+if(phones.length>9 && !isShowAll){
    showAllContainer.classList.remove('hidden');
 
 }else{
     showAllContainer.classList.add('hidden')
 }
 
-   //Display top 10 products
-   console.log(phones.length)
-   phones=phones.slice(0,12);
+//console.log('is show all',isShowAll)
+
+   //Display top 10 products if not show all
+   //console.log(phones.length)
+   if(!isShowAll){
+    phones=phones.slice(0,9);
+   }
+   
 
 
 
@@ -45,8 +50,8 @@ if(phones.length>12){
   <div class="card-body items-center text-center ">
     <h2 class="card-title">${phone.phone_name}</h2>
     <p>If a dog chews shoes whose shoes does he choose?</p>
-    <div class="card-actions">
-      <button class="btn btn-primary">Buy Now</button>
+    <div class="card-actions justify-center">
+      <button onclick="handelShowDet('${phone.slug}')" class="btn btn-primary">Show Details</button>
     </div>
   </div>
 
@@ -59,14 +64,50 @@ if(phones.length>12){
 
 }
 
+//Show details
+
+const handelShowDet=async(id)=>{
+    console.log(id);
+
+    //load data one by one
+ const res =await fetch(`https://openapi.programming-hero.com/api/phone/${id}`);
+ const data=await res.json();
+ //console.log(data) ;
+ const phoneDetails=data.data;
+showPhoneDetails(phoneDetails);
+
+}
+
+const showPhoneDetails=(phone)=>{
+    
+    console.log(phone);
+    const phoneName=document.getElementById('show-details-phone-name');
+    phoneName.innerText=phone.name;
+
+    const showDetailsContainer=document.getElementById('show-detail-container');
+    showDetailsContainer.innerHTML=`
+
+    <img src="${phone.image}"/>
+
+    <p><span>Storage: </span> ${phone?.mainFeatures?.storage}</p>
+    <p><span>display: </span> ${phone?.mainFeatures?.displaySize}</p>
+    <p><span>chipSet: </span> ${phone?.mainFeatures?.chipSet}</p>
+    <p><span>memory : </span> ${phone?.mainFeatures?.memory
+    }</p>
+    
+    `;
+    //Show the modal
+    show_details_modal.showModal()
+}
+
 //Handle Search button
-const handleSearch=()=>{
+const handleSearch=(isShowAll)=>{
     toggleLoding(true);
     //console.log('searche working')
     const searchField=document.getElementById('search-field');
     const searchText=searchField.value;
     console.log(searchText)
-    loadPhone(searchText);
+    loadPhone(searchText,isShowAll);
 
 }
 
@@ -78,4 +119,9 @@ const toggleLoding=(isLoading)=>{
         loadingSpinner.classList.add('hidden')
     }
 }
-//loadPhone();
+
+// handle show all
+const handelShowAll=()=>{
+    handleSearch(true);
+}
+loadPhone();
