@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Tea House Website</title>
+    <title>Phone Hunter</title>
      <!-- Google font Manrope -->
  
     <!-- Tailwind and DaisyUI CDN links -->
@@ -25,15 +25,28 @@
 
       <!-- Banner -->
       <div>
-
+      <h1 class="text-5xl font-medium">Phone Store</h1>
       </div>
     </header>
 
     <!-- Main Section -->
-    <main class="container mx-auto">
-      <!-- One Section -->
-      <section>
+    <main class="container mx-auto mt-10">
         
+     <!-- Seacrch Section -->
+        <section class="p-6">
+            <div class="bg-[#ffecec] p-2 rounded-lg lg:max-w-full  ">
+                <input id="search-field" type="text" placeholder="Search" class="input input-bordered input-warning w-full  max-w-xs" />
+                <button onclick="handleSearch()" class="btn btn-outline btn-error">Search</button>
+            </div>
+        </section>
+
+      <!-- Phone Store Section -->
+      <section>
+
+        <div id="phone-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 p-6">
+
+           <!-- Dynamiacly card added -->
+        </div>
       </section>
       <!-- Two Section -->
       <section>
@@ -54,6 +67,6 @@
     <footer>
       
     </footer>
-
+<script src="script.js"></script>
   </body>
 </html>
