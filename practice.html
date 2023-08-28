@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Phone Hunter</title>
+    <!-- Tailwind and DaisyUI CDN links -->
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@3.4.0/dist/full.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body>
+    <h1 class="p-6">Phone</h1>
+
+    <!-- Header Section -->
+    <header class="container mx-auto">
+        <!-- Navbar -->
+        <nav class="">
+  
+        </nav>
+      </header>
+  
+      <!-- Main Section -->
+      <main class="container mx-auto">
+
+
+        <!-- Seacrch Section cart and menu -->
+        <section class="p-6">
+            <div class="bg-[#ffecec] p-2 rounded-lg lg:max-w-full gap-3 flex justify-between  ">
+                <input id="search-field" type="text" placeholder="Search" class="input input-bordered input-warning w-full  max-w-xs" />
+                <button onclick="handleSearch()" class="btn btn-outline btn-error">Search</button>
+            </div>
+        </section>
+           <!-- Spinner -->
+      <div id="loding-spinner" class="text-center my-40 hidden">
+        <span class="loading loading-ring loading-lg"></span>
+      </div>
+
+        <!-- Card Section -->
+        <section>
+          <div id="phone-data-container" class="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-6">
+            <!-- Add products Dynamicaly -->
+          </div>
+
+          <!-- Show all Products -->
+        <div id="show-all-container" class="hidden text-center my-8" >
+            <button onclick="handelShowAll()" class="btn btn-outline btn-error">Show All</button>
+        </div>
+        </section>
+
+        <!-- Two Section -->
+        <section>
+  
+        </section>
+        <!-- Three Section -->
+        <section>
+  
+        </section>
+  
+      </main>
+  
+      <!-- Footer Section -->
+      <footer>
+        
+      </footer>
+    <script src="practice.js"></script>
+</body>
+</html>
