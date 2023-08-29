@@ -45,7 +45,6 @@ if(phones.length>9 && !isShowAll){//Product set in Main page For user
     </figure>
   <div class="card-body items-center text-center ">
     <h2 class="card-title">${phone.phone_name}</h2>
-    <p>If a dog chews shoes whose shoes does he choose?</p>
     <div class="card-actions justify-center">
       <button onclick="handelShowDet('${phone.slug}')" class="btn btn-outline btn-error">Show Details</button>
     </div>
@@ -67,7 +66,7 @@ const handelShowDet=async(id)=>{
     //load data one by one
  const res =await fetch(`https://openapi.programming-hero.com/api/phone/${id}`);
  const data=await res.json();
- //console.log(data) ;
+ console.log(data) ;
  const phoneDetails=data.data;
 showPhoneDetails(phoneDetails);
 
@@ -82,13 +81,23 @@ const showPhoneDetails=(phone)=>{
 
     const showDetailsContainer=document.getElementById('show-detail-container');
     showDetailsContainer.innerHTML=`
+    <div class="flex justify-center my-10">
 
-    <img src="${phone.image}"/>
+    <img  src="${phone.image}"/>
 
-    <p><span>Storage: </span> ${phone?.mainFeatures?.storage}</p>
-    <p><span>display: </span> ${phone?.mainFeatures?.displaySize}</p>
-    <p><span>chipSet: </span> ${phone?.mainFeatures?.chipSet}</p>
-    <p><span>memory : </span> ${phone?.mainFeatures?.memory
+    </div>
+    
+    <p><span class="font-medium my-4">Storage: </span> ${phone?.mainFeatures?.storage}</p>
+    <p><span class="font-medium my-4">display: </span> ${phone?.mainFeatures?.displaySize}</p>
+    <p><span class="font-medium my-4">chipSet: </span> ${phone?.mainFeatures?.chipSet}</p>
+    <p><span class="font-medium my-4">memory : </span> ${phone?.mainFeatures?.memory
+    }</p>
+    <p><span class="font-medium my-4">Wlan: </span> ${phone?.others?.WLAN
+    }</p>
+    <p><span class="font-medium my-4">Bluetooth: </span> ${phone?.others?.Bluetooth
+    }</p>
+    <p><span class="font-medium my-4">Realease Date: </span> ${phone?.releaseDate
+
     }</p>
     
     `;

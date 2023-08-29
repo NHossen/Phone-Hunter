@@ -1,14 +1,14 @@
-const phoneData= async(search="oppo")=>{// Step 1 By Finction take Phone data using async function and fetch
+const phoneData= async(search="oppo",isShowAll)=>{// Step 1 By Finction take Phone data using async function and fetch
 const dataApi=`https://openapi.programming-hero.com/api/phones?search=${search}`;//Take Perameter for Seaching data and add link with search buttom ==> searchButton
 const res=await fetch(dataApi);
 const data=await res.json();//res convert to json data
 const phonesData=data.data
 //console.log(phonesData);
-displayPhoneData(phonesData)
+displayPhoneData(phonesData,isShowAll)
 }
 
 
-const displayPhoneData=(phonesData)=>{ // step 2.1declaration a function to take data from another function
+const displayPhoneData=(phonesData,isShowAll)=>{ // step 2.1declaration a function to take data from another function
 
                                   //Now Need to show Data User
   const phoneCardContainer=document.getElementById('phone-data-container');//step 2.3
@@ -17,14 +17,19 @@ const displayPhoneData=(phonesData)=>{ // step 2.1declaration a function to take
 
 //Show extra phone data button
 const showAllContainer=document.getElementById('show-all-container');
-   if(phonesData.length>12){
+   if(phonesData.length>12 && !isShowAll){
        showAllContainer.classList.remove('hidden')
    } else{
     showAllContainer.classList.add('hidden')
    }
+
+   console.log('is show all', isShowAll)
      //console.log(phonesData.length);
-   //Set Display item in Main page
-   phonesData=phonesData.slice(0,12);
+   //Set Display item in Main page 12 phone if not show all 
+   if(!isShowAll){
+    phonesData=phonesData.slice(0,12);
+   }
+   
 
 
                                   
@@ -44,7 +49,7 @@ const showAllContainer=document.getElementById('show-all-container');
                   <h2 class="card-title">${phone.brand}</h2>
                   <p></p>
                   <div class="card-actions">
-                    <button class="btn btn-primary">Buy Now</button>
+                    <button onclick="showPhoneDetails('${phone.slug}')" class="btn btn-primary">Show Details</button>
                   </div>
                 </div>
  
@@ -54,14 +59,69 @@ const showAllContainer=document.getElementById('show-all-container');
 
  }) //Show phone Data one by one
 
+
+//  Spinners off
+toggleLoadingSpinners(false)
+
 }
 
-const handleSearch=()=>{
+const handleSearch=(isShowAll)=>{
+  toggleLoadingSpinners(true);
     //console.log('sea')
     const searchField=document.getElementById('search-field');
     const searchText=searchField.value;
     //console.log(searchText);
-    phoneData(searchText);//Loadphone connect with searchbtn
+    phoneData(searchText,isShowAll);//Loadphone connect with searchbtn
+}
+
+
+
+
+// Spinner 
+
+const toggleLoadingSpinners=(isLoading) => {
+  const toggleSpiner=document.getElementById('loding-spinner');
+  if(isLoading){
+    toggleSpiner.classList.remove('hidden');
+  }else{
+    toggleSpiner.classList.add('hidden');
+  }
+  
+}
+
+// Handel Show all
+
+const handelShowAll=() =>{
+  handleSearch(true)
+
+}
+
+const showPhoneDetails=async(id)=>{
+  //console.log('Cliked')
+  const res =await fetch(`https://openapi.programming-hero.com/api/phone/${id}`);
+ const data=await res.json();
+ //console.log(data) ;
+ const phone=data.data;
+ phoneDetails(phone);
+}
+
+const phoneDetails=(phone)=>{
+
+  const phoneTitle=document.getElementById('phone-name');
+  phoneTitle.innerText=phone.name;
+  // Show details
+ const showDetailsContainer=document.getElementById('show-details-container');
+
+ showDetailsContainer.innerHTML=`
+ 
+  <img src="${phone.image}" />
+ 
+ `;
+
+
+
+  console.log(phone);
+  show_details_modal.showModal()
 }
 
 phoneData()//Step 1.1 Need to call for data
